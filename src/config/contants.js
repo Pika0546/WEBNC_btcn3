@@ -1,0 +1,1 @@
+export const MEME_LIST_API = "https://api.imgflip.com/get_memes"
