@@ -1,5 +1,5 @@
 
-import React, { useMemo, useState, useEffect } from 'react'
+import React, {  useState, useEffect } from 'react'
 import './App.css';
 
 import Paper from '@mui/material/Paper'
@@ -17,6 +17,7 @@ const App = () => {
 	const [message, setMessage] = useState(null);
 
 	const getMemeList = async () => {
+		setMessage(null);
 		setIsLoading(true);
 		try {
 			const res = await (await fetch(MEME_LIST_API)).json();
@@ -52,7 +53,7 @@ const App = () => {
 					alignItems: "center",
 				}}
 			>
-				<Gallery isLoading={isLoading} images={memeList}></Gallery>
+				<Gallery message={message} isLoading={isLoading} images={memeList}></Gallery>
 				<Button
 					variant='contained'
 					sx={{

@@ -3,9 +3,8 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import CircularProgress from '@mui/material/CircularProgress';
 
-const Gallery = ({ images, isLoading }) => {
+const Gallery = ({ images, isLoading, message }) => {
     return (
         <Paper
             variant="outlined"
@@ -18,9 +17,9 @@ const Gallery = ({ images, isLoading }) => {
                 }}
                 cols={2} gap={12}
             >
-                {isLoading ? (
+                {(isLoading || message) ? (
                     <>
-                        Đang tải...
+                        {message || "Đang tải..."}
                     </>
                 ) : (
                     <>
