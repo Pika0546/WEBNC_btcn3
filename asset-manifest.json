@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/WEBNC_btcn3/static/css/main.7f6f8549.css",
-    "main.js": "/WEBNC_btcn3/static/js/main.14753745.js",
+    "main.js": "/WEBNC_btcn3/static/js/main.fef8f039.js",
     "index.html": "/WEBNC_btcn3/index.html",
     "main.7f6f8549.css.map": "/WEBNC_btcn3/static/css/main.7f6f8549.css.map",
-    "main.14753745.js.map": "/WEBNC_btcn3/static/js/main.14753745.js.map"
+    "main.fef8f039.js.map": "/WEBNC_btcn3/static/js/main.fef8f039.js.map"
   },
   "entrypoints": [
     "static/css/main.7f6f8549.css",
-    "static/js/main.14753745.js"
+    "static/js/main.fef8f039.js"
   ]
 }
