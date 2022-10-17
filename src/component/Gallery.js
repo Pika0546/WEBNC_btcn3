@@ -1,27 +1,33 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import Skeleton from '@mui/material/Skeleton';
+import { SKELETON_AMOUNT } from '../config/contants';
 
 const Gallery = ({ images, isLoading, message }) => {
+
+    const skeletonArray = useMemo(()=>{
+        return Array.from(Array(SKELETON_AMOUNT).keys()).map((item, index)=>{
+            return <Skeleton key={index} animation="wave" variant="rounded" width={200} height={180} />
+        })
+    },[])
+
     return (
         <Paper
             variant="outlined"
+            sx={{
+                width: "80%",
+            }}
         >
             <ImageList
                 sx={{
-                    width: "40rem",
-                    height: "30rem",
                     padding: "1rem",
                 }}
-                cols={2} gap={12}
+                cols={4} gap={12}
             >
-                {(isLoading || message) ? (
-                    <>
-                        {message || "Đang tải..."}
-                    </>
-                ) : (
+                {(isLoading) ? skeletonArray : (
                     <>
                         {images.map((item) => (
                             <ImageListItem key={item.id}>

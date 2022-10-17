@@ -5,10 +5,12 @@ import './App.css';
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
+import Stack from '@mui/material/Stack'
 
-import { MEME_LIST_API } from './config/contants';
+import { FETCH_API_TIMEOUT, MEME_LIST_API } from './config/contants';
 import Gallery from './component/Gallery';
+import ScrollToTop from './component/ScrollToTop';
+import { getRndInteger } from './utilities';
 
 const App = () => {
 
@@ -32,7 +34,27 @@ const App = () => {
 		}
 		setTimeout(() => {
 			setIsLoading(false);
-		}, [1000])
+		}, [FETCH_API_TIMEOUT])
+	}
+
+	const getRandomMeme = async () => {
+		setMessage(null);
+		setIsLoading(true);
+		try {
+			const res = await (await fetch(MEME_LIST_API)).json();
+			if (res.success) {
+				const index = getRndInteger(0, res.data.memes.length);
+				setMemeList([res.data.memes[index]])
+			}
+			else {
+				setMessage("Có lỗi đã xảy ra, vui lòng thử lại sau")
+			}
+		} catch (error) {
+			setMessage("Có lỗi đã xảy ra, vui lòng thử lại sau")
+		}
+		setTimeout(()=>{
+			setIsLoading(false);
+		},[FETCH_API_TIMEOUT])
 	}
 
 	useEffect(() => {
@@ -40,29 +62,51 @@ const App = () => {
 	}, [])
 
 	return (
-		<Box>
-			<Typography variant="h5">
+		<Box
+			sx={{
+				width: "100%",
+			}}
+		>
+			<Box
+				sx={{
+					fontSize: "2rem",
+					textAlign:"center",
+					fontWeight: "bold",
+				}}
+			>
 				Meme List
-			</Typography>
-			<Paper
+			</Box>
+			<Stack
+				spacing={2}
+				justifyContent="center"
+				alignItems="center"
+				direction="row"
+				sx={{
+					marginTop: "1rem",
+				}}
+			>
+				<Button
+					variant='contained'
+					onClick={getMemeList}
+				>Tải lại</Button>
+				<Button
+					variant='contained'
+					onClick={getRandomMeme}
+				>Tạo ngẫu nhiên một Meme</Button>
+			</Stack>
+			<Box
 				sx={{
 					padding: 2,
-					background: "#000",
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
+					width: "100%",
 				}}
 			>
 				<Gallery message={message} isLoading={isLoading} images={memeList}></Gallery>
-				<Button
-					variant='contained'
-					sx={{
-						margin: "0 auto",
-						marginTop: "2rem",
-					}}
-					onClick={getMemeList}
-				>Tải lại</Button>
-			</Paper>
+				
+			</Box>
+			<ScrollToTop></ScrollToTop>
 		</Box>
 	)
 }
